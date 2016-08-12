@@ -1,8 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ClassNames from 'classnames';
+import onClickOutside from 'react-onclickoutside';
 import data from './data/data';
 
+
+class Header extends React.Component {
+	constructor() {
+		super();
+
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick() {
+		let { toggleSidebar } = this.props;
+		toggleSidebar();
+	}
+
+	render() {
+		return (
+			<header>
+				<button
+					className='icon menu'
+					onClick={this.handleClick}
+				></button>
+				<h1>NHC</h1>
+			</header>
+		)
+	}
+}
 
 class InfoBubble extends React.Component {
 	constructor() {
@@ -25,7 +51,8 @@ class InfoBubble extends React.Component {
 	render() {
 		let { activeIndex, data } = this.props;
 		let classes = ClassNames('info-bubble', {
-			'active': !!this.props.activeIndex && this.props.infoBubbleIsOpen
+			'active': !!this.props.activeIndex && this.props.infoBubbleIsOpen, 
+			'hidden': !this.props.infoBubbleIsOpen
 		});
 		let title = !!activeIndex ? data[activeIndex-1].name : '';
 		let content = !!activeIndex ? data[activeIndex-1].description : '';
@@ -47,11 +74,13 @@ class InfoBubble extends React.Component {
 
 class Marker extends React.Component {
 	handleClick() {
-		let { index, updateIndex, infoBubbleIsOpen, toggleInfoBubble } = this.props;
+		let { index, updateIndex, infoBubbleIsOpen, toggleInfoBubble, sidebarIsOpen, toggleSidebar } = this.props;
 		// Update index of data
 		updateIndex(index);
 		// Show infoBubble
 		if (!infoBubbleIsOpen) { toggleInfoBubble(true) };
+		// Hide sidebar
+		if (sidebarIsOpen) { toggleSidebar(false) };
 	}
 
 	render() {
@@ -105,8 +134,13 @@ class App extends React.Component {
 
         this.state = {
             activeIndex: 0, 
-            infoBubbleIsOpen: false
+            infoBubbleIsOpen: false, 
+            sidebarIsOpen: false
         };
+
+        this.updateIndex = this.updateIndex.bind(this);
+		this.toggleInfoBubble = this.toggleInfoBubble.bind(this);
+		this.toggleSidebar = this.toggleSidebar.bind(this);
     }
 
 	componentDidMount() {
@@ -125,8 +159,21 @@ class App extends React.Component {
     	this.setState({infoBubbleIsOpen: newState})
     }
 
+    toggleSidebar(newState) {
+    	if (newState !== undefined) {
+    		this.setState({sidebarIsOpen: newState})
+    	} else {
+    		this.setState({sidebarIsOpen: !this.state.sidebarIsOpen});
+    	}
+    }
+
     render() {
     	let { data } = this.props;
+    	let { sidebarIsOpen } = this.state;
+    	let sidebarClasses = ClassNames('sidebar', {
+			'active': sidebarIsOpen, 
+			'hidden': !sidebarIsOpen
+		});
 
     	if (!data) {
 			return <i className='icon loading'></i>;
@@ -136,14 +183,29 @@ class App extends React.Component {
         	<div
         		className='wrapper'
         	>
+        		<Header
+        			toggleSidebar={this.toggleSidebar}
+        			{...this.props}
+        			{...this.state}
+        		/>
+        		<aside className={sidebarClasses}>
+        			<MarkerList 
+		        		updateIndex={this.updateIndex}
+		        		toggleInfoBubble={this.toggleInfoBubble}
+		        		toggleSidebar={this.toggleSidebar}
+		        		{...this.props}
+		        		{...this.state}
+		        	/>
+        		</aside>
 	        	<MarkerList 
-	        		updateIndex={this.updateIndex.bind(this)}
-	        		toggleInfoBubble={this.toggleInfoBubble.bind(this)}
+	        		updateIndex={this.updateIndex}
+	        		toggleInfoBubble={this.toggleInfoBubble}
+	        		toggleSidebar={this.toggleSidebar}
 	        		{...this.props}
 	        		{...this.state}
 	        	/>
 	        	<InfoBubble 
-	        		toggleInfoBubble={this.toggleInfoBubble.bind(this)}
+	        		toggleInfoBubble={this.toggleInfoBubble}
 					{...this.props}
 					{...this.state}
 				/>

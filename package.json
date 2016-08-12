@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --progress --colors --inline"
   },
-  "author": "",
+  "author": "Jamie Robertson",
+  "homepage": "https://github.com/JamieRobertson/nhc-react",
   "license": "ISC",
   "dependencies": {
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "react-onclickoutside": "^5.3.3"
   },
   "devDependencies": {
     "babel-core": "^6.9.1",
