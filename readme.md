@@ -6,9 +6,11 @@ Part of this purpose of this project to learn more about React and Blender 3d.
 ### How to run in development
 
 ```bash
+$ cd app/
+$ npm install  # installs node_modules
 $ npm start
 
-# This is the same as running:
+# npm start is the same as running:
 # $ webpack-dev-server --progress --colors --inline
 ```
 
