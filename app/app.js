@@ -119,7 +119,8 @@ class Marker extends React.Component {
 	}
 
 	render() {
-		let classes = ClassNames('marker', {
+		let iconType = 'icon-'+this.props.type;
+		let classes = ClassNames('marker', iconType, {
 			'active': this.props.index === this.props.activeIndex
 		});
 
@@ -142,11 +143,13 @@ class MarkerList extends React.Component {
 		let markerNodes = data.map((object, i) => {
 			// console.log(this);
 			let index = i+1;
+			let type = object.type != undefined ? object.type : '';
 
 			return (
 				<Marker 
 					key={i} 
 					index={index}
+					type={type}
 					{...this.props}
 					{...this.state}
 				/>

@@ -176,29 +176,34 @@ let data = [
         "coords" : [ 51.51, -0.20 ]
     }, {
         "name" : "Westbourne Park",
+        "lines" : [ "HammersmithCity" ],
         "type" : "station", 
         "description" : "Exit only from 11:00-18:00 station closes at 23:30",
-        "coords" : [ 51.51, -0.20 ]
+        "coords" : [ 51.520920849526010000, -0.200883771467904430 ]
     }, {
         "name" : "Ladbroke Grove",
+        "lines" : [ "HammersmithCity" ],
         "type" : "station", 
         "description" : "Station closed",
-        "coords" : [ 51.51, -0.20 ]
+        "coords" : [ 51.517188449881736000, -0.210861917848587150 ]
     }, {
         "name" : "Royal Oak",
+        "lines" : [ "HammersmithCity" ], 
         "type" : "station", 
         "description" : "exit only from 11:00-18:00 station closes at 18:00",
-        "coords" : [ 51.51, -0.20 ]
+        "coords" : [ 51.519017120333290000, -0.188230043028310500 ]
     }, {
         "name" : "Bayswater",
+        "lines" : [ "Circle", "District"],
         "type" : "station", 
         "description" : "Open both days",
-        "coords" : [ 51.51, -0.20 ]
+        "coords" : [ 51.512233058741060000, -0.188038262221618460 ]
     }, {
         "name" : "Notting Hill Gate",
+        "lines" : [ "Central", "Circle", "District"],
         "type" : "station", 
         "description" : "12:00-19:00 exit only no circle & district line access",
-        "coords" : [ 51.51, -0.20 ]
+        "coords" : [ 51.509063533643740000, -0.196537685407762500 ]
     }
 ];
 
