@@ -20,6 +20,13 @@ This is important because React dev tools cannot inspect an iframe.
 Then preview at `http://localhost:8080/` (or whatever else it says in terminal).  
 
 
+### Resources already available
+[Interactive google map](https://www.google.com/maps/d/embed?ll=51.519319%2C-0.205994&spn=0.017625%2C0.028281&output=embed&hl=en&t=m&msa=0&z=15&ie=UTF8&mid=1VYtB2NY6kUCKpAA0N5qPipH7giY) by Time out  
+
+Test coordinates with a url like this:  
+`https://www.google.se/maps/@[latitude],[longitude],21z`  
+
+
 ### Awesomplete plugin by [Lea Verou](http://lea.verou.me/projects/)
 > A 2KB autocomplete with zero dependencies
 
