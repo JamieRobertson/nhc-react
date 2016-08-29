@@ -1,5 +1,6 @@
 /**
- *  A wonderful API
+ * Here is an API to serve updates on NHC twitter news and Transport news
+ * 
  */
 
 const mongoose = require('mongoose');
