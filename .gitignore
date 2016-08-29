@@ -1,3 +1,15 @@
-.DS_Store
+# Node build artifacts
 node_modules
-server/auth
+npm-debug.log
+
+# Local development
+*.env
+*.dev
+.DS_Store
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# API credentials
+tfl/auth

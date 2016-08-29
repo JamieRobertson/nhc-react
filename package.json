@@ -2,25 +2,36 @@
   "name": "nhc-react",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --progress --colors --inline"
+    "dev": "this is wrong: webpack-dev-server --progress --colors --inline",
+    "start": "node ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamieRobertson/nhc-react.git"
   },
   "author": "Jamie Robertson",
   "homepage": "https://github.com/JamieRobertson/nhc-react",
   "license": "ISC",
   "dependencies": {
     "awesomplete": "^1.1.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.10",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-onclickoutside": "^5.3.3"
   },
   "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.14.0",
     "babel-core": "^6.9.1",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.5.0",
     "classnames": "^2.2.5",
     "css-loader": "^0.24.0",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -28,6 +39,7 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2"
   }
 }
