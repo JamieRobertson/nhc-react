@@ -1,4 +1,5 @@
 @import 'normalize.sass'
+@import 'mixins.sass'
 @import 'variables.sass'
 
 $static: '/static/img'
@@ -9,36 +10,138 @@ $static: '/static/img'
 body
     color: $black
     background-color: $sw_white
+    // font-family: 
 
-// h3
+html, body, #app, .container, .content-wrap
+    overflow: hidden
+    width: 100%
+    height: 100%
 
-// p 
+.container
+    .content-wrap
+        @include vertical_scroll
+        .content 
+            position: relative
+
+h3
+    margin: 0.4em 0 0.7em
+    font-weight: normal
+    line-height: 1.1
+
+p
+    margin: 0 0 1em 
+    line-height: 1.3
 
 // .icon
 
 
-// Header 
-// header
-    // button.icon.menu
-    // div.search
-        // input
 
+// Header with menu button + search
+header
+    position: absolute
+    z-index: $z_index_header
+    top: 20px
+    left: 20px
+    width: 100%
+    max-width: 340px
+    padding: 4px
+    background-color: white
+    .search, .menu.icon
+        display: inline-block
+        // float: left
+    .menu.icon
+        width: 20%
+    .search
+        width: 80%
+        input
+            border: none
+            outline: 0
+            font-size: 26px
+            padding: 8px
 
-// Sidebar
-// aside.sidebar
-//     background-color: $black
-//     &.hidden
-//         visibility: hidden
-//     &.active
-//         visibility: visible
+// Sidebar menu
+.container
+    aside.sidebar
+        @include vertical_scroll
+        position: absolute
+        z-index: $z_index_sidebar
+        width: 300px
+        height: 100%
+        padding: 30px 30px 0
+        font-size: 15px
+        color: $cream
+        background-color: $dark_blue
+        transform: translate3d(-320px,0,0)
+        transition: transform 0.4s
+        transition-timing-function: cubic-bezier(0.7,0,0.3,1)
+        .close.icon
+            position: absolute
+            top: 1em
+            right: 1em
+        nav
+            ul
+                height: 100%
+                padding: 0
+                margin: 0 0 50px
+                li 
+                    cursor: pointer
+                    list-style: none
+                    padding: 8px 0
+                    margin: 4px 0
+    &.sidebar-active aside.sidebar
+        transform: translate3d(0,0,0)
+        transition: transform 0.8s
+        transition-timing-function: cubic-bezier(0.7,0,0.3,1)
 
-// ul.markers
-    // li.marker
-        // &.active
+// Add a dark overlay when sidebar is visible
+.container
+    .content::before 
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        z-index: $overlay-z-index
+        width: 100%
+        height: 100%
+        background: $translucent
+        opacity: 0
+        transform: translate3d(100%,0,0)
+        transition: opacity 0.4s, transform 0s 0.4s
+        transition-timing-function: cubic-bezier(0.7,0,0.3,1)
+    &.sidebar-active .content::before
+        opacity: 1
+        transform: translate3d(0,0,0)
+        transition: opacity 0.8s
+        transition-timing-function: cubic-bezier(0.7,0,0.3,1)
+
+// Map markers
+.container
+    .content
+        ul.markers
+            padding: 0
+            li.marker
+                @include hide_text(40px, 40px)
+                display: inline-block
+                list-style: none
+                cursor: pointer
+                background-color: tomato
+                &.active
+                    background-color: teal
 
 // Info bubble
-// div.info-bubble
-    // &.active
-    // &.hidden
-    // button.icon.close
-    // h3, p
+div.info-bubble
+    position: fixed
+    bottom: 2em
+    right: 2em
+    background-color: white
+    width: 100%
+    max-width: 300px
+    padding: 15px 15px 30px
+    border-radius: 3px
+    transform: translate3d(0, 400px, 0)
+    .close.icon
+        position: absolute
+        top: 0.5em
+        right: 0.5em
+    &.active
+        transform: translate3d(0, 0, 0)
