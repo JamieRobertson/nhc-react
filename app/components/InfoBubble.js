@@ -1,7 +1,7 @@
 import React from 'react';
 import ClassNames from 'classnames';
 import colors from './colors';
-import ButtonIconSVG from './ButtonIconSVG';
+import { CloseIconSVG } from './ButtonIconSVG';
 
 class InfoBubble extends React.Component {
     constructor() {
@@ -36,10 +36,7 @@ class InfoBubble extends React.Component {
             >
                 <h3>{title}</h3>
                 <p>{content}</p>
-                <button 
-                    className='icon close'
-                    onClick={this.closeBubble}
-                ></button>
+                <i className='icon close' onClick={this.closeBubble}><CloseIconSVG fillColor='#2a2a2a' /></i>
             </div>
         );
     }

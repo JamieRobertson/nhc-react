@@ -6,7 +6,7 @@ import onClickOutside from 'react-onclickoutside';
 import Header from './components/Header';
 import MarkerList from './components/MarkerList';
 import InfoBubble from './components/InfoBubble';
-import ButtonIconSVG from './components/ButtonIconSVG';
+import { CloseIconSVG } from './components/ButtonIconSVG';
 
 
 export default class App extends React.Component {
@@ -78,10 +78,7 @@ export default class App extends React.Component {
                             {...this.state}
                         />
                     </nav>
-                    <button
-                        className='icon close'
-                        onClick={this.toggleSidebar}
-                    ></button>
+                    <i className='icon close' onClick={this.toggleSidebar}><CloseIconSVG fillColor='#eeeeee' /></i>
                 </aside>
                 <div className='content-wrap'>
                     <div className='content'>

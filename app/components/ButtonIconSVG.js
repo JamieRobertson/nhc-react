@@ -4,7 +4,6 @@ class ButtonIconSVG extends React.Component {
     render() {
         return (
             <svg
-                className="icon"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 320 320"
                 fill="currentColor"
@@ -41,7 +40,7 @@ class CloseIconSVG extends React.Component {
         return (
             <ButtonIconSVG>
                 <g>
-                    <path fill='#2a2a2a' d="M281.3,233.9c0,5.4-1.9,10.1-5.7,13.9l-27.8,27.8c-3.8,3.8-8.4,5.7-13.9,5.7c-5.4,0-10.1-1.9-13.9-5.7l-60-60l-60,60
+                    <path fill={this.props.fillColor} d="M281.3,233.9c0,5.4-1.9,10.1-5.7,13.9l-27.8,27.8c-3.8,3.8-8.4,5.7-13.9,5.7c-5.4,0-10.1-1.9-13.9-5.7l-60-60l-60,60
                     c-3.8,3.8-8.4,5.7-13.9,5.7c-5.4,0-10.1-1.9-13.9-5.7l-27.8-27.8c-3.8-3.8-5.7-8.4-5.7-13.9c0-5.4,1.9-10.1,5.7-13.9l60-60l-60-60
                     c-3.8-3.8-5.7-8.4-5.7-13.9c0-5.4,1.9-10.1,5.7-13.9l27.8-27.8c3.8-3.8,8.4-5.7,13.9-5.7c5.4,0,10.1,1.9,13.9,5.7l60,60l60-60
                     c3.8-3.8,8.4-5.7,13.9-5.7c5.4,0,10.1,1.9,13.9,5.7l27.8,27.8c3.8,3.8,5.7,8.4,5.7,13.9c0,5.4-1.9,10.1-5.7,13.9l-60,60l60,60
@@ -52,4 +51,4 @@ class CloseIconSVG extends React.Component {
     }
 }
 
-export default ButtonIconSVG;
+export { MenuIconSVG, CloseIconSVG };

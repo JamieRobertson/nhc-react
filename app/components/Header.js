@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchInput from './SearchInput';
-import ButtonIconSVG from './ButtonIconSVG';
+import { MenuIconSVG } from './ButtonIconSVG';
 
 class Header extends React.Component {
     constructor() {
@@ -17,10 +17,7 @@ class Header extends React.Component {
     render() {
         return (
             <header>
-                <button
-                    className='icon menu'
-                    onClick={this.handleClick}
-                ></button>
+                <i className='icon menu' onClick={this.handleClick}><MenuIconSVG fillColor='#2a2a2a' /></i>                
                 <SearchInput 
                     {...this.props}
                 />
