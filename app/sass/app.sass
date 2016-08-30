@@ -29,8 +29,9 @@ h3
     line-height: 1.1
 
 p
+    font-size: 15px
     margin: 0 0 1em 
-    line-height: 1.3
+    line-height: 1.4
 
 // .icon
 
@@ -67,8 +68,7 @@ header
         z-index: $z_index_sidebar
         width: 300px
         height: 100%
-        padding: 30px 30px 0
-        font-size: 15px
+        padding: 30px 15px 0
         color: $cream
         background-color: $dark_blue
         transform: translate3d(-320px,0,0)
@@ -86,8 +86,11 @@ header
                 li 
                     cursor: pointer
                     list-style: none
-                    padding: 8px 0
+                    font-size: 16px
+                    padding: 12px 4px 12px 12px
                     margin: 4px 0
+                    &:hover 
+                        background-color: darken($black, 15%)
     &.sidebar-active aside.sidebar
         transform: translate3d(0,0,0)
         transition: transform 0.8s
@@ -97,7 +100,7 @@ header
 .container
     .content::before 
         content: ''
-        position: absolute
+        position: fixed
         top: 0
         left: 0
         z-index: $overlay-z-index
@@ -119,6 +122,7 @@ header
     .content
         ul.markers
             padding: 0
+            margin: 0
             li.marker
                 @include hide_text(40px, 40px)
                 display: inline-block
@@ -139,9 +143,11 @@ div.info-bubble
     padding: 15px 15px 30px
     border-radius: 3px
     transform: translate3d(0, 400px, 0)
+    transition: transform 0.4s
     .close.icon
         position: absolute
         top: 0.5em
         right: 0.5em
     &.active
         transform: translate3d(0, 0, 0)
+        transition: transform 0.4s
