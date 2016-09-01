@@ -6,6 +6,7 @@ import onClickOutside from 'react-onclickoutside';
 import Header from './components/Header';
 import MarkerList from './components/MarkerList';
 import InfoBubble from './components/InfoBubble';
+import Countdown from './components/Countdown';
 import { CloseIconSVG } from './components/ButtonIconSVG';
 
 
@@ -99,6 +100,7 @@ export default class App extends React.Component {
                             {...this.props}
                             {...this.state}
                         />
+                        <Countdown />
                     </div>
                 </div>
             </div>
