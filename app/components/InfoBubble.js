@@ -27,8 +27,8 @@ class InfoBubble extends React.Component {
             'active': !!this.props.activeIndex && this.props.infoBubbleIsOpen, 
             'hidden': !this.props.infoBubbleIsOpen
         });
-        let title = !!activeIndex ? data[activeIndex-1].name : '';
-        let content = !!activeIndex ? data[activeIndex-1].description : '';
+        let title = !!activeIndex ? data.soundsystems[activeIndex-1].name : '';
+        let content = !!activeIndex ? data.soundsystems[activeIndex-1].description : '';
 
         return (
             <div 

@@ -34,11 +34,12 @@ class MarkerList extends React.Component {
         let { data } = this.props;
 
         // Using fat arrow to preserve 'this'
-        let markerNodes = data.map((object, i) => {
+        let markerNodes = data.soundsystems.map((object, i) => {
             // console.log(this);
             let index = i+1;
             let type = object.type != undefined ? object.type : '';
-            let name = data[i].name;
+            // let name = data[i].name;
+            let name = object.name;
 
             return (
                 <Marker 

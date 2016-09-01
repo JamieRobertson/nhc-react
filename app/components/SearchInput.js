@@ -7,7 +7,7 @@ class SearchInput extends React.Component {
 
         let { data } = this.props;
         // Convert names in data to array
-        this.namesAsArray = data.map((value) => { return value.name });
+        this.namesAsArray = data.soundsystems.map((value) => { return value.name });
     }
 
     componentDidMount() {
