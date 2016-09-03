@@ -5,6 +5,7 @@ import onClickOutside from 'react-onclickoutside';
 // Our own components
 import Header from './components/Header';
 import MarkerList from './components/MarkerList';
+import MapTiles from './components/MapTiles';
 import InfoBubble from './components/InfoBubble';
 import Countdown from './components/Countdown';
 import { CloseIconSVG } from './components/ButtonIconSVG';
@@ -17,7 +18,8 @@ export default class App extends React.Component {
         this.state = {
             activeIndex: 0, 
             infoBubbleIsOpen: false, 
-            sidebarIsOpen: false
+            sidebarIsOpen: false, 
+            zoom: 1
         };
 
         this.updateIndex = this.updateIndex.bind(this);
@@ -34,20 +36,18 @@ export default class App extends React.Component {
     }
     
     updateIndex(newIndex) {
-        this.setState({activeIndex: newIndex})
+        this.setState({activeIndex: newIndex});
     }
 
     toggleInfoBubble(newState) {
-        this.setState({infoBubbleIsOpen: newState})
+        this.setState({infoBubbleIsOpen: newState});
     }
 
     toggleSidebar(event, newState) {
-        // console.log(event);
-        // console.log(newState);
         event.preventDefault();
         // event.persist();
         if (newState !== undefined) {
-            this.setState({sidebarIsOpen: newState})
+            this.setState({sidebarIsOpen: newState});
         } else {
             this.setState({sidebarIsOpen: !this.state.sidebarIsOpen});
         }
@@ -95,8 +95,13 @@ export default class App extends React.Component {
                             {...this.props}
                             {...this.state}
                         />
+                        <MapTiles 
+                            {...this.props}
+                            {...this.state}
+                        />
                         <InfoBubble 
                             toggleInfoBubble={this.toggleInfoBubble}
+                            updateIndex={this.updateIndex}
                             {...this.props}
                             {...this.state}
                         />

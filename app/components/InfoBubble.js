@@ -10,15 +10,12 @@ class InfoBubble extends React.Component {
         this.closeBubble = this.closeBubble.bind(this);
     }
 
-    // shouldComponentUpdate() {
-    //  let { activeIndex } = this.props;
-    //  console.log('add content');
-    //  return !!activeIndex;
-    // }
-
     closeBubble() {
-        let { infoBubbleIsOpen, toggleInfoBubble } = this.props;
+        let { updateIndex, infoBubbleIsOpen, toggleInfoBubble } = this.props;
+        // Hide infoBubble
         if (infoBubbleIsOpen) { toggleInfoBubble(false) };
+        // Deselect marker
+        updateIndex(0);
     }
 
     render() {

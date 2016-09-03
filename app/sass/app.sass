@@ -21,7 +21,11 @@ html, body, #app, .container, .content-wrap
     .content-wrap
         @include vertical_scroll
         .content 
-            position: relative
+            position: absolute
+            top: 0
+            left: 0
+            height: 100%
+            width: 100%
 
 h3
     margin: 0.4em 0 0.7em
@@ -135,11 +139,18 @@ header
 .container
     .content
         ul.markers
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
             padding: 0
             margin: 0
             li.marker
                 @include hide_text(40px, 40px)
-                display: inline-block
+                position: absolute
+                z-index: $z-index-marker
+                display: block
                 list-style: none
                 cursor: pointer
                 background-color: tomato
@@ -151,6 +162,7 @@ div.info-bubble
     position: fixed
     bottom: 2em
     right: 2em
+    z-index: $z_index_info_bubble
     background-color: white
     width: 100%
     max-width: 300px
@@ -165,3 +177,23 @@ div.info-bubble
     &.active
         transform: translate3d(0, 0, 0)
         transition: transform 0.4s
+
+// The map
+// map tiles left + top set are set inline
+.map-tiles-container
+    position: absolute
+    top: 0
+    left: 0
+    z-index: $z_index_map
+    width: 100%
+    height: 100%
+    overflow: hidden
+    img.map-tile
+        position: absolute
+        width: 256px
+        height: 256px
+        opacity: 0
+        transition: opacity 0.2s linear
+        &.loaded
+            opacity: 1
+        
