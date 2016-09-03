@@ -7,25 +7,31 @@ $static: '/static/img'
 *, :after, :before
     box-sizing: border-box
 
-body
-    color: $black
-    background-color: $sw_white
-    // font-family: 
-
-html, body, #app, .container, .content-wrap
-    overflow: hidden
-    width: 100%
+html, body 
     height: 100%
 
-.container
-    .content-wrap
-        @include vertical_scroll
-        .content 
-            position: absolute
-            top: 0
-            left: 0
-            height: 100%
-            width: 100%
+body
+    color: $black
+    background-color: $map_cream
+    // width?
+    overflow: hidden
+    // font-family: 
+
+#app, .container, .content-wrap, .content
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    height: 100%
+    overflow: hidden
+    .map, .map-tiles-container
+        position: absolute
+        top: 0
+        left: 0
+        // width: 100%
+        // height: 100%
+        // overflow: hidden
 
 h3
     margin: 0.4em 0 0.7em
@@ -48,12 +54,13 @@ p
         svg
             width: 20px
             height: 20px
-    &.menu
+    &.clock
         width: 38px
         height: 38px
         svg
             width: 30px
             height: 30px
+
 
 // Header with menu button + search
 header
@@ -62,21 +69,49 @@ header
     top: 20px
     left: 20px
     width: 100%
-    max-width: 340px
-    padding: 4px
+    height: 50px
+    max-width: 350px
     background-color: white
-    .search, .menu.icon
+    border-radius: $border_radius
+    box-shadow: $box_shadow
+    .search, i.menu.icon
         display: inline-block
-        // float: left
-    .menu.icon
-        width: 20%
+    i.menu.icon
+        width: 50px
+        height: 50px
+        padding: 11px
+        float: left
+        svg
+            width: 27px
+            height: 27px
     .search
-        width: 80%
-        input
-            border: none
-            outline: 0
-            font-size: 26px
-            padding: 8px
+        width: 300px
+        // height: 50px
+        .awesomplete
+            input
+                width: 100%
+                height: 50px
+                border: none
+                padding: 8px
+                outline: 0
+                font-size: 21px
+                background-color: transparent
+            ul
+                // display: block
+                margin: 8px 0 0 -50px
+                padding: 4px 0
+                background-color: white
+                box-shadow: $box_shadow
+                li 
+                    list-style: none
+                    margin: 1px 0
+                    padding: 7px 4px 7px 10px
+                    line-height: 1.2
+                    color: $gray
+                    cursor: pointer
+                    mark
+                        color: $gray
+                        background: #fff88a
 
 // Sidebar menu
 .container
@@ -90,7 +125,7 @@ header
         color: $cream
         background-color: $dark_blue
         transform: translate3d(-320px,0,0)
-        transition: transform 0.4s
+        transition: transform 0.3s
         transition-timing-function: cubic-bezier(0.7,0,0.3,1)
         .close.icon
             position: absolute
@@ -111,7 +146,7 @@ header
                         background-color: darken($black, 15%)
     &.sidebar-active aside.sidebar
         transform: translate3d(0,0,0)
-        transition: transform 0.8s
+        transition: transform 0.4s
         transition-timing-function: cubic-bezier(0.7,0,0.3,1)
 
 // Add a dark overlay when sidebar is visible
@@ -136,30 +171,30 @@ header
         transition-timing-function: cubic-bezier(0.7,0,0.3,1)
 
 // Map markers
-.container
-    .content
-        ul.markers
+.map
+    ul.markers
+        position: absolute
+        top: 0
+        left: 0
+        z-index: $z_index_marker
+        width: 100%
+        height: 100%
+        padding: 0
+        margin: 0
+        li.marker
+            @include hide_text(40px, 40px)
             position: absolute
-            top: 0
-            left: 0
-            width: 100%
-            height: 100%
-            padding: 0
-            margin: 0
-            li.marker
-                @include hide_text(40px, 40px)
-                position: absolute
-                z-index: $z-index-marker
-                display: block
-                list-style: none
-                cursor: pointer
-                background-color: tomato
-                &.active
-                    background-color: teal
+            z-index: $z-index-marker
+            display: block
+            list-style: none
+            cursor: pointer
+            background-color: tomato
+            &.active
+                background-color: teal
 
 // Info bubble
 div.info-bubble
-    position: fixed
+    position: absolute
     bottom: 2em
     right: 2em
     z-index: $z_index_info_bubble
@@ -167,7 +202,8 @@ div.info-bubble
     width: 100%
     max-width: 300px
     padding: 15px 15px 30px
-    border-radius: 3px
+    border-radius: $border_radius
+    box-shadow: $box_shadow
     transform: translate3d(0, 400px, 0)
     transition: transform 0.4s
     .close.icon
@@ -180,20 +216,55 @@ div.info-bubble
 
 // The map
 // map tiles left + top set are set inline
-.map-tiles-container
-    position: absolute
-    top: 0
-    left: 0
+.map
     z-index: $z_index_map
-    width: 100%
-    height: 100%
-    overflow: hidden
-    img.map-tile
-        position: absolute
-        width: 256px
-        height: 256px
+    cursor: -webkit-grab
+    cursor: -mox-grab
+    .map-tiles-container
+        img.map-tile
+            position: absolute
+            width: 256px
+            height: 256px
+            max-width: none !important
+            opacity: 0
+            visibility: hidden
+            transition: opacity 0.2s linear
+            // -webkit-user-drag: none
+            // -webkit-user-select: none
+            // -moz-user-select: none
+            // user-select: none
+            &.loaded
+                opacity: 1
+                visibility: inherit
+            
+.countdown
+    display: none
+    position: absolute
+    top: 20px
+    right: 0
+    z-index: $z_index_countdown
+    width: 200px
+    height: 50px
+    padding: 6px
+    background-color: $blue
+    cursor: pointer !important
+    transform: translate3d(150px, 0, 0)
+    transition: transform 0.4s
+    h3, i
+        display: inline-block
+    i   
+        float: left
+        margin-right: 10px
+    h3
+        color: white
+        text-transform: uppercase
+        font-weight: 300
         opacity: 0
-        transition: opacity 0.2s linear
-        &.loaded
+        margin-top: 10px
+        margin-bottom: 0
+        transition: opacity 0.6s
+    &.active
+        transform: translate3d(0, 0, 0)
+        transition: transform 0.4s
+        h3
             opacity: 1
-        

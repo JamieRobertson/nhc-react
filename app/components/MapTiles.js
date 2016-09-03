@@ -5,25 +5,34 @@ class Tile extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			isImageLoaded: false
+			isImageLoaded: false, 
+			isDraggingTile: false
 		};
-		this.imageOnLoad = this.imageOnLoad.bind(this);
+		this.handleOnLoad = this.handleOnLoad.bind(this);
+		this.preventDefault = this.preventDefault.bind(this);
 	}
 
-	imageOnLoad() {
+	preventDefault(e) {
+		e.preventDefault();
+		this.setState({isDraggingTile: true})
+	}
+
+	handleOnLoad() {
 		this.setState({ isImageLoaded: true });
 	}
 
 	render() {
 		let imageClasses = ClassNames('map-tile', {
-			'loaded': this.state.isImageLoaded
+			'loaded': this.state.isImageLoaded, 
+			'is-dragging': this.state.isDraggingTile
 		});
 
 		return(
 			<img 
 				src={this.props.src}
 				className={imageClasses}
-				onLoad={this.imageOnLoad}
+				onLoad={this.handleOnLoad}
+				onDragStart={this.preventDefault}
 				style={this.props.inlineStyles}
 			/>
 		);
@@ -37,6 +46,8 @@ class MapTiles extends React.Component {
 		let tileNodes = tiles[zoom].map((object, i) => {
 			let src = object.src;
 			let inlineStyles = {
+				width: 256, 
+				height: 256, 
 				left: object.position[0], 
 				top: object.position[1]
 			}

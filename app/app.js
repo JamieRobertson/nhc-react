@@ -19,15 +19,32 @@ export default class App extends React.Component {
             activeIndex: 0, 
             infoBubbleIsOpen: false, 
             sidebarIsOpen: false, 
-            zoom: 1
+            isMouseDown: false,
+            isDragging: false, 
+            zoom: 1, 
+            offsetLeft: -640 + (window.innerWidth / 2), 
+            offsetTop: -640 + (window.innerHeight / 2)
         };
+
+        // Offsets: map is 1280x1280 
+        // so find center: -640x-640
+        // then add screen width and height
 
         this.updateIndex = this.updateIndex.bind(this);
         this.toggleInfoBubble = this.toggleInfoBubble.bind(this);
         this.toggleSidebar = this.toggleSidebar.bind(this);
+        this.onMapDragStart = this.onMapDragStart.bind(this);
+        this.onMapDrag = this.onMapDrag.bind(this);
+        this.onMapDragEnd = this.onMapDragEnd.bind(this);
+    }
+
+    centerMap() {
+        // Update state.offsets
+        // transform: translate3d(-92px, -1px, 0px);
     }
 
     componentDidMount() {
+        // getWindowWidth();
         // TODO: Handle touchstart
         // See this: https://www.npmjs.com/package/react-onclickoutside
         // window.document.addEventListener('mousedown', function() {
@@ -53,6 +70,30 @@ export default class App extends React.Component {
         }
     }
 
+    onMapDrag(e) {
+        if (this.state.isMouseDown) {
+            console.log('e.screenX ' + e.screenX);
+            console.log('e.clientX ' + e.clientX);    
+        }
+        // console.log(e.target);
+        // console.log('foo');
+        // console.log('e.screenX ' + e.screenX);
+        // console.log('e.screenY ' + e.screenY);
+        // console.log('e.clientX ' + e.clientX);
+        // console.log('e.clientY ' + e.clientY);
+        // this.setState({isDragging: true});
+    }
+
+    onMapDragStart(e) {
+        console.log('onMapDragStart');
+        this.setState({isMouseDown: true});
+    }
+
+    onMapDragEnd(e) {
+        console.log('onMapDragEnd');
+        this.setState({isMouseDown: false});   
+    }
+
     render() {
         let { data } = this.props;
         let { sidebarIsOpen } = this.state;
@@ -60,6 +101,9 @@ export default class App extends React.Component {
             'sidebar-active': sidebarIsOpen, 
             'sidebar-hidden': !sidebarIsOpen
         });
+        let mapClasses = {
+            transform: 'translate3d('+ this.state.offsetLeft +'px, '+ this.state.offsetTop +'px, 0px)'
+        }
 
         if (!data) {
             return <i className='icon loading'></i>;
@@ -88,17 +132,26 @@ export default class App extends React.Component {
                             {...this.props}
                             {...this.state}
                         />
-                        <MarkerList 
-                            updateIndex={this.updateIndex}
-                            toggleInfoBubble={this.toggleInfoBubble}
-                            toggleSidebar={this.toggleSidebar}
-                            {...this.props}
-                            {...this.state}
-                        />
-                        <MapTiles 
-                            {...this.props}
-                            {...this.state}
-                        />
+                        <div 
+                            className='map'
+                            // onDragStart={this.onMapDragStart}
+                            onMouseDown={this.onMapDragStart}
+                            onMouseMove={this.onMapDrag}
+                            onMouseUp={this.onMapDragEnd}
+                            style={mapClasses}
+                        >
+                            <MarkerList 
+                                updateIndex={this.updateIndex}
+                                toggleInfoBubble={this.toggleInfoBubble}
+                                toggleSidebar={this.toggleSidebar}
+                                {...this.props}
+                                {...this.state}
+                            />
+                            <MapTiles 
+                                {...this.props}
+                                {...this.state}
+                            />
+                        </div>
                         <InfoBubble 
                             toggleInfoBubble={this.toggleInfoBubble}
                             updateIndex={this.updateIndex}

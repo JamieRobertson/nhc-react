@@ -46,7 +46,7 @@ class Cowntdown extends React.Component {
 				onClick={this.handleClick}
 				className={'countdown ' + countDownClass}
 			>
-				<i className='icon countdown'><TimeIconSVG fillColor='#eeeeee' /></i>
+				<i className='icon clock'><TimeIconSVG fillColor='#eeeeee' /></i>
 				<h3>{this.timeLeft}</h3>
 			</div>
 		);
