@@ -9,7 +9,12 @@ const port = process.env.PORT || 8080;
 const app = express();
 const staticPath = express.static(path.join(__dirname + "/app/static"));
 
-// Routes
+
+// Are we in production?
+let isDev = process.env.NODE_ENV !== 'production' ? true : false;
+
+// Set the view engine to ejs
+app.set('view engine', 'ejs');
 
 // Serve static files 
 app.use('/static', staticPath);
@@ -22,7 +27,10 @@ app.get('/api', function (req, res, next) {
 
 // Serve the web app
 app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname + '/app/index.html'));
+	// Only import css from external file in production
+	res.render(path.join(__dirname + '/app/index'), {
+		isDev: isDev
+	}); 
 });
 
 
@@ -32,7 +40,7 @@ app.get('/', function (req, res) {
  * heroku config:set NODE_ENV=production
  * heroku config:set NPM_CONFIG_PRODUCTION=true
  */
-if (process.env.NODE_ENV !== 'production') {
+if (isDev) {
 	const webpack = require('webpack');
 	const webpackDevMiddleware = require('webpack-dev-middleware');
 	const webpackHotMiddleware = require('webpack-hot-middleware');

@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+// In dev styles are loaded inline - ExtractTextPlugin does not work with HMR
 
 // webpack-hot-middleware/client?reload=true is a hack 
 // it reloads when ewbpack gets stuck
@@ -22,10 +24,7 @@ module.exports = {
 
   plugins: [
   	new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('bundle.css', {
-      allChunks: true
-    })
+    new webpack.NoErrorsPlugin()
   ],
 
   module: {
@@ -35,16 +34,13 @@ module.exports = {
         loader: 'babel',
         include: path.join(__dirname, 'app'),
         exclude: /node_modules/
-        // ,
-        // query: {
-        //   presets: ['es2015', 'react']
-        // }
       }, 
-      {
-        test: /\.sass$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader?sourceMap"),
-        include: path.join(__dirname, 'app', 'sass'),
+      { 
+        test: /\.sass?$/,
+        loader: 'style-loader!css-loader!postcss-loader!sass-loader',
+        include: path.join(__dirname, 'app', 'sass') 
       }
     ]
-  }
+  },
+  postcss: [ autoprefixer({ browsers: ['last 3 versions'] }) ]
 };

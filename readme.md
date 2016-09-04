@@ -11,13 +11,20 @@ $ npm install  # installs node_modules
 $ npm start
 
 # npm start is the same as running:
-# $ webpack-dev-server --progress --colors --inline
+# $ node ./server.js
+
+# Preview at `http://localhost:8080/` (or whatever else it says in terminal).  
 ```
 
-Note the `--inline` flag. This means webpack __does not__ run in an iframe.  
-This is important because React dev tools cannot inspect an iframe.  
 
-Then preview at `http://localhost:8080/` (or whatever else it says in terminal).  
+### How to run in production on Heroku
+```bash
+# The Procfile will be run by Heroku - do you need to run build first?
+# You should set NODE_ENV to production on Heroku cli
+
+$ npm run build  # sets NODE_ENV to production
+$ npm start      # (?)
+```
 
 
 ### Resources already available
